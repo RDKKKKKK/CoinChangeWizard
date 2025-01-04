@@ -35,18 +35,21 @@ public class CoinChangeService {
             throw new IllegalArgumentException("Target amount must be between 0 and 10000.00");
         }
 
-        denominations.sort(Comparator.reverseOrder());
+        for (BigDecimal coin : denominations) {
+            if (!VALID_DENOMINATIONS.contains(coin)) {
+                throw new IllegalArgumentException("Invalid coin denomination: " + coin);
+            }
+        }
+
+        List<BigDecimal> coinDenominations = new ArrayList<>(denominations);
+        coinDenominations.sort(Comparator.reverseOrder());
 
         List<BigDecimal> result = new ArrayList<>();
 
         BigDecimal need = targetAmount;
 
         // Greedy Algorithm
-        for (BigDecimal coin : denominations) {
-            if (!VALID_DENOMINATIONS.contains(coin)) {
-                throw new IllegalArgumentException("Invalid coin denomination: " + coin);
-            }
-
+        for (BigDecimal coin : coinDenominations) {
             while (need.compareTo(coin) >= 0) {
 
                 result.add(coin);
