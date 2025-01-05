@@ -19,7 +19,6 @@ public class CoinChangeApplication extends Application<CoinChangeConfiguration> 
 
     @Override
     public void initialize(Bootstrap<CoinChangeConfiguration> bootstrap) {
-        // 显式注册 ConnectorFactory 和 ServerFactory 的子类型
         bootstrap.getObjectMapper().registerModule(new SimpleModule()
                 .registerSubtypes(HttpConnectorFactory.class, DefaultServerFactory.class));
     }

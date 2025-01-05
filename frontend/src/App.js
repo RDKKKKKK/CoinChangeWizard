@@ -26,7 +26,7 @@ function App() {
             .map((num) => parseFloat(num));
 
         try {
-            const res = await axios.post('/coinchange', {
+            const res = await axios.post('/api/coinchange', {
                 targetAmount: parseFloat(targetAmount),
                 coinDenominations: coinArray,
             });

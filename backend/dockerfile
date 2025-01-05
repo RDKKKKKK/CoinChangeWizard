@@ -1,8 +1,17 @@
+FROM maven:3.8-openjdk-17 AS build
+
+WORKDIR /app
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
 FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/CoinChangeWizard-1.0-SNAPSHOT.jar /app/coinchange.jar
+COPY --from=build /app/target/CoinChangeWizard-1.0-SNAPSHOT.jar /app/coinchange.jar
 COPY src/main/resources/config.yml /app/config.yml
 
 EXPOSE 8080
