@@ -22,7 +22,7 @@ class CoinChangeResponse {
     }
 }
 
-@Path("/coinchange")
+@Path("/api/coinchange")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CoinChangeResource {
